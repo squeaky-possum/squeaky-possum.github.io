@@ -203,10 +203,11 @@
 
   function update(source) {
     if (source === 'fg-hex' || source === 'bg-hex') {
+      var input = source === 'fg-hex' ? els.fgHex : els.bgHex;
       var key = source === 'fg-hex' ? 'fg' : 'bg';
-      var hex = normalise(els[source].value);
+      var hex = normalise(input.value);
       if (!hex) {
-        els[source].setAttribute('aria-invalid', 'true');
+        input.setAttribute('aria-invalid', 'true');
         return;
       }
       setField(key, hex);
