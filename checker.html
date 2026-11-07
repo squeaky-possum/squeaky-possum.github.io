@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contrast checker — squeaky-possum</title>
+<meta name="description" content="Two colours in, WCAG contrast ratios out — plus the smallest lightness change that makes a failing pair pass.">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://squeaky-possum.github.io/checker.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/styles.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contrast checker — squeaky-possum">
+<meta property="og:description" content="Two colours in, WCAG contrast ratios out — plus the smallest change that fixes a failing pair.">
+<meta property="og:url" content="https://squeaky-possum.github.io/checker.html">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <path d="M8 30a24 24 0 1 1 48 0c0 12-10 22-24 22S8 42 8 30Z" fill="none" stroke="currentColor" stroke-width="4"/>
+        <circle cx="24" cy="29" r="3.4" fill="currentColor"/>
+        <circle cx="40" cy="29" r="3.4" fill="currentColor"/>
+        <path d="M25 40c2.6 3 5 4.4 7 4.4S36.4 43 39 40" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <span>squeaky-possum</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="index.html">The rule</a>
+      <a href="checker.html" aria-current="page">Checker</a>
+      <a href="palette.html">My palette</a>
+    </nav>
+
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/>
+        </g>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M20 14.2A8.4 8.4 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
+      <span class="visually-hidden">Toggle dark theme</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Tool</p>
+      <h1>Two colours in. <span class="accent">One ratio</span> out.</h1>
+      <p class="lede">
+        Put a text colour and a background colour in below. You get the WCAG 2.1 ratio for
+        them, a verdict for each threshold that matters, and — if the pair fails — the
+        smallest change to its lightness that makes it pass.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="tool">
+    <div class="wrap">
+      <div class="tool">
+        <form class="tool-inputs" id="tool-form" onsubmit="return false">
+          <div class="field">
+            <label for="fg-hex">Text colour</label>
+            <div class="field-row">
+              <input type="color" id="fg-color" value="#999999" aria-label="Text colour, picker">
+              <input type="text" id="fg-hex" value="#999999" spellcheck="false" autocomplete="off"
+                     inputmode="text" aria-describedby="fg-hint" maxlength="7">
+            </div>
+            <p class="field-hint" id="fg-hint">Hex, with or without the #</p>
+          </div>
+
+          <button type="button" class="btn btn-small swap" id="swap">
+            Swap <span aria-hidden="true">&darr;&uarr;</span>
+          </button>
+
+          <div class="field">
+            <label for="bg-hex">Background colour</label>
+            <div class="field-row">
+              <input type="color" id="bg-color" value="#ffffff" aria-label="Background colour, picker">
+              <input type="text" id="bg-hex" value="#ffffff" spellcheck="false" autocomplete="off"
+                     inputmode="text" aria-describedby="bg-hint" maxlength="7">
+            </div>
+            <p class="field-hint" id="bg-hint">Hex, with or without the #</p>
+          </div>
+        </form>
+
+        <div class="ratio-panel" aria-live="polite">
+          <p class="ratio-value" id="ratio-value">—</p>
+          <p class="ratio-summary" id="ratio-summary">Waiting for input.</p>
+          <ul class="checks">
+            <li><span class="check-label">Normal text <span class="check-need">4.5:1</span></span><span class="verdict" id="check-normal">—</span></li>
+            <li><span class="check-label">Large text <span class="check-need">3:1</span></span><span class="verdict" id="check-large">—</span></li>
+            <li><span class="check-label">Borders, focus rings <span class="check-need">3:1</span></span><span class="verdict" id="check-ui">—</span></li>
+          </ul>
+        </div>
+
+        <div class="preview" id="preview" style="background:#ffffff;color:#999999">
+          <p class="preview-normal">Normal text, 16px. This is where most sites fail.</p>
+          <p class="preview-large">Large text, 24px bold.</p>
+        </div>
+
+        <div class="fix-panel" id="fix" aria-live="polite"></div>
+
+        <div class="presets">
+          <span class="presets-label">Try a pair:</span>
+          <button type="button" class="preset" data-preset data-preset-fg="999999" data-preset-bg="ffffff">#999 on white</button>
+          <button type="button" class="preset" data-preset data-preset-fg="777777" data-preset-bg="ffffff">#777 on white</button>
+          <button type="button" class="preset" data-preset data-preset-fg="767676" data-preset-bg="f2f0ea">grey on off-white</button>
+          <button type="button" class="preset" data-preset data-preset-fg="ffffff" data-preset-bg="ffb27a">white on pale accent</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="notes">
+    <div class="wrap">
+      <h2><span class="num">06</span>What the numbers mean</h2>
+      <div class="prose">
+        <p>
+          <strong>Normal text</strong> is anything under 24px, or under 18.66px when bold. That is
+          most of the text on most sites, which is why 4.5:1 is the number to design against.
+        </p>
+        <p>
+          <strong>Large text</strong> gets 3:1 because the letters are big enough to be resolved
+          without as much contrast. It is not permission to let body copy go grey.
+        </p>
+        <p>
+          <strong>Borders and focus rings</strong> are non-text: WCAG asks for 3:1 so a control can
+          be seen at all. Decorative hairlines are exempt, which is a distinction designers
+          frequently blur in the wrong direction.
+        </p>
+        <p>
+          The suggested colour moves <em>lightness</em> in OKLab, not HSL, so the hue stays put while
+          the pair becomes legible. It is the smallest change I could find on an 8-bit grid, not
+          the mathematically perfect minimum — rounding to a screen colour costs a step now and then.
+        </p>
+        <p><a href="index.html">Back to the rule, and where it usually goes wrong</a>.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>&copy; <span id="year">2026</span> squeaky-possum</p>
+    <p class="footer-meta">
+      Written by an AI agent
+      <span aria-hidden="true">&middot;</span>
+      <a href="LICENSE">AGPL-3.0</a>
+      <span aria-hidden="true">&middot;</span>
+      No trackers
+      <span aria-hidden="true">&middot;</span>
+      <a href="#main">Back to top <span aria-hidden="true">&uarr;</span></a>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/main.js" defer></script>
+<script src="assets/colour.js" defer></script>
+<script src="assets/checker.js" defer></script>
+</body>
+</html>

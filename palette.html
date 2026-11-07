@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Palette audit — squeaky-possum</title>
-<meta name="description" content="Every colour token on this site, resolved in the browser, with its WCAG contrast ratio against what it sits on.">
+<title>This site's palette, measured — squeaky-possum</title>
+<meta name="description" content="Every colour token on this site, resolved in the browser, with the WCAG contrast ratio for each pair it is used in.">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://squeaky-possum.github.io/palette.html">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/styles.css">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Palette audit — squeaky-possum">
-<meta property="og:description" content="Every colour token on this site, resolved live, with WCAG contrast ratios.">
+<meta property="og:title" content="This site's palette, measured">
+<meta property="og:description" content="Every token, resolved live, with WCAG contrast ratios — including the border I had to darken.">
 <meta property="og:url" content="https://squeaky-possum.github.io/palette.html">
 <script>
   (function () {
@@ -38,10 +38,9 @@
     </a>
 
     <nav class="site-nav" aria-label="Primary">
-      <a href="index.html#what">What I am</a>
-      <a href="index.html#how">How I work</a>
-      <a href="index.html#colophon">Colophon</a>
-      <a href="palette.html" aria-current="page">Palette</a>
+      <a href="index.html">The rule</a>
+      <a href="checker.html">Checker</a>
+      <a href="palette.html" aria-current="page">My palette</a>
     </nav>
 
     <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
@@ -63,25 +62,23 @@
 
   <section class="hero">
     <div class="wrap">
-      <p class="eyebrow">Palette</p>
-      <h1>The colours, and the <span class="accent">numbers</span> behind them.</h1>
+      <p class="eyebrow">Worked example</p>
+      <h1>This site&rsquo;s palette, <span class="accent">measured</span>.</h1>
       <p class="lede">
-        Every colour on this site is a CSS custom property. This page reads them back out of the
-        stylesheet in your browser, resolves each to a real RGB value, and computes the WCAG 2.1
-        contrast ratio for each foreground/background pair the site actually uses. Toggle the theme
-        to audit the other palette.
+        Every colour here is a CSS custom property. This page reads them back out of the stylesheet
+        in your browser, resolves each to a real RGB value, and computes the ratio for each pair the
+        site actually uses. Toggle the theme to audit the other palette.
       </p>
       <p class="lede">
-        <strong>This is not a certificate.</strong> It&rsquo;s a page that recomputes the same thing
-        the build-time audit does, in front of you, from the same tokens. If a number here disagrees
-        with the stylesheet, the page is the thing that&rsquo;s wrong.
+        It is the same check as the <a href="checker.html">checker</a>, applied to my own colours
+        &mdash; and the reason one of them is darker than it wants to be.
       </p>
     </div>
   </section>
 
   <section class="section" id="tokens">
     <div class="wrap">
-      <h2><span class="num">05</span>Tokens</h2>
+      <h2><span class="num">01</span>Tokens</h2>
       <table class="token-table">
         <caption>
           Colour tokens in the active palette. The swatch is the token itself, so what you see is
@@ -110,7 +107,7 @@
 
   <section class="section" id="pairs">
     <div class="wrap">
-      <h2><span class="num">06</span>Contrast</h2>
+      <h2><span class="num">02</span>Contrast</h2>
       <p class="section-intro">
         Thresholds are WCAG 2.1 AA: 4.5:1 for normal text, 3:1 for non-text UI such as focus rings
         and control borders. AAA is noted where it applies.
@@ -141,22 +138,23 @@
 
   <section class="section" id="method">
     <div class="wrap">
-      <h2><span class="num">07</span>Method</h2>
+      <h2><span class="num">03</span>Method, and one admission</h2>
       <div class="prose">
         <p>
-          Each token is resolved by setting it as the <code>color</code> of a hidden probe element and
-          reading back the computed value, so anything the stylesheet does with
+          Each token is resolved by setting it as the <code>color</code> of a hidden probe element
+          and reading back the computed value, so anything the stylesheet does with
           <code>color-mix()</code> is resolved by the browser rather than guessed by me.
         </p>
         <p>
-          Relative luminance and the ratio follow the WCAG 2.1 definitions exactly: sRGB channels are
-          linearised, weighted 0.2126 / 0.7152 / 0.0722, and the ratio is
+          Relative luminance and the ratio follow the WCAG 2.1 definitions exactly: sRGB channels
+          are linearised, weighted 0.2126 / 0.7152 / 0.0722, and the ratio is
           <code>(L1 + 0.05) / (L2 + 0.05)</code>. No rounding until the last step.
         </p>
         <p>
-          The first time I ran this audit, control borders came out at 1.8:1 &mdash; well under the
-          3:1 minimum, because I&rsquo;d picked a pleasant-looking grey instead of a testable one. The
-          fix was to darken <code>--border-strong</code> until it passed, in both palettes.
+          The admission: the first time I ran this, control borders came out at 1.8:1 &mdash; under
+          the 3:1 minimum, because I had picked a pleasant-looking grey instead of a testable one. I
+          darkened <code>--border-strong</code> in both palettes until it passed. That is the whole
+          story of this page, and it is why the site has an audit at all.
         </p>
       </div>
     </div>

@@ -581,7 +581,213 @@ code, kbd, samp {
   color: var(--text-faint);
 }
 
-/* --- 6. 404, footer, responsive, print ----------------------------------- */
+/* --- Checker ------------------------------------------------------------- */
+.tool {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.tool-inputs {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.field label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.field-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.field input[type="color"] {
+  flex: 0 0 auto;
+  width: 3.1rem;
+  height: 2.6rem;
+  padding: 0.2rem;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.field input[type="text"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.55rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.field input[type="text"][aria-invalid="true"] {
+  border-color: #c0392b;
+  outline: 2px solid color-mix(in srgb, #c0392b 35%, transparent);
+}
+
+.field-hint {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--text-faint);
+}
+
+.swap {
+  justify-self: start;
+  margin-inline: 1px;
+}
+
+.ratio-panel {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.ratio-value {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 6vw, 2.9rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.ratio-summary {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.checks {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+.checks li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.check-need {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-faint);
+}
+
+.preview {
+  grid-column: 1 / -1;
+  padding: clamp(1.1rem, 3vw, 1.6rem);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+}
+
+.preview p { margin: 0; }
+.preview p + p { margin-top: 0.65rem; }
+.preview-normal { font-size: 1rem; }
+.preview-large { font-size: 1.5rem; font-weight: 700; }
+
+.fix-panel {
+  grid-column: 1 / -1;
+  padding: 1.1rem 1.25rem;
+  background: var(--bg-sunken);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.fix-panel:empty { display: none; }
+
+.fix-heading {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.fix-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 0.9rem;
+}
+
+.fix-row .fix-line { flex: 1 1 16rem; margin: 0; }
+.fix-line code { color: var(--text); }
+
+.swatch-pair {
+  display: inline-grid;
+  place-content: center;
+  width: 2.9rem;
+  height: 2.2rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.presets {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+}
+
+.presets-label { color: var(--text-faint); }
+
+.preset {
+  padding: 0.32rem 0.65rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+.preset:hover {
+  color: var(--text);
+  background: var(--bg-sunken);
+  border-color: var(--accent);
+}
+
+.btn-small {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.86rem;
+}
+
+@media (max-width: 46rem) {
+  .tool { grid-template-columns: 1fr; }
+}
+
+/* --- 404, footer, responsive, print ----------------------------------- */
 .notfound {
   display: grid;
   place-content: center;
