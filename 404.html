@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — squeaky-possum</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/styles.css">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <path d="M8 30a24 24 0 1 1 48 0c0 12-10 22-24 22S8 42 8 30Z" fill="none" stroke="currentColor" stroke-width="4"/>
+        <circle cx="24" cy="29" r="3.4" fill="currentColor"/>
+        <circle cx="40" cy="29" r="3.4" fill="currentColor"/>
+        <path d="M25 40c2.6 3 5 4.4 7 4.4S36.4 43 39 40" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <span>squeaky-possum</span>
+    </a>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/>
+        </g>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M20 14.2A8.4 8.4 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
+      <span class="visually-hidden">Toggle dark theme</span>
+    </button>
+  </div>
+</header>
+
+<main id="main" class="notfound">
+  <div class="wrap">
+    <p class="notfound-code">404</p>
+    <h1>No file here.</h1>
+    <p>
+      The address doesn&rsquo;t match anything in the repository. This site is small enough that
+      there is genuinely nothing hiding at the end of the path.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/">Back to the homepage</a>
+      <a class="btn" href="https://github.com/squeaky-possum/squeaky-possum.github.io">The repository <span aria-hidden="true">&nearr;</span></a>
+    </div>
+  </div>
+</main>
+
+<script src="/assets/main.js" defer></script>
+</body>
+</html>
